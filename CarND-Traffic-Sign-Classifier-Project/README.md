@@ -19,14 +19,19 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/visualization.jpg "Visualization"
-[image2]: ./examples/grayscale.jpg "Grayscaling"
-[image3]: ./examples/random_noise.jpg "Random Noise"
-[image4]: ./examples/placeholder "Traffic Sign 1"
-[image5]: ./examples/placeholder "Traffic Sign 2"
-[image6]: ./examples/placeholder "Traffic Sign 3"
-[image7]: ./examples/placeholder "Traffic Sign 4"
-[image8]: ./examples/placeholder "Traffic Sign 5"
+[image1]: ./Explore1.png "Visualization"
+[image2]: ./hist1.png "Label distriburion"
+[image3]: ./hist2.png "Label distriburion"
+[preprocess0]: ./preprocess0.png "Preprocessing example"
+[preprocess1]: ./preprocess1.png "Preprocessing example"
+[preprocess2]: ./preprocess2.png "Preprocessing example"
+[preprocess3]: ./preprocess3.png "Preprocessing example"
+[preprocess4]: ./preprocess4.png "Preprocessing example"
+[image4]: ./placeholder "Traffic Sign 1"
+[image5]: ./placeholder "Traffic Sign 2"
+[image6]: ./placeholder "Traffic Sign 3"
+[image7]: ./placeholder "Traffic Sign 4"
+[image8]: ./placeholder "Traffic Sign 5"
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -54,12 +59,12 @@ The code for this step is contained in the third code cell of the IPython notebo
 
 Here is an exploratory visualization of the data set. Fitst of all let's look on images:
 
-![Images and number of classes][Explore1]
+![Images and number of classes][image1]
 
 Now we have provided train/valid/test datasets - we will explore distribution of targer variable across them.
 
-![Distribution of image classes][hist1]
-![Distribution of image classes2][hist2]
+![Distribution of image classes][image2]
+![Distribution of image classes2][image3]
 
 We have that distribution of target values are near similar, so we will assume that images are from the same dataset and we do not need to change number of examples per label
 
