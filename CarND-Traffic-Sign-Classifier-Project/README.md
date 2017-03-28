@@ -22,11 +22,11 @@ The goals / steps of this project are the following:
 [image1]: ./examples/visualization.jpg "Visualization"
 [image2]: ./examples/grayscale.jpg "Grayscaling"
 [image3]: ./examples/random_noise.jpg "Random Noise"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+[image4]: ./examples/placeholder "Traffic Sign 1"
+[image5]: ./examples/placeholder "Traffic Sign 2"
+[image6]: ./examples/placeholder "Traffic Sign 3"
+[image7]: ./examples/placeholder "Traffic Sign 4"
+[image8]: ./examples/placeholder "Traffic Sign 5"
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -54,12 +54,12 @@ The code for this step is contained in the third code cell of the IPython notebo
 
 Here is an exploratory visualization of the data set. Fitst of all let's look on images:
 
-![Images and number of classes][Explore1.png]
+![Images and number of classes][Explore1]
 
 Now we have provided train/valid/test datasets - we will explore distribution of targer variable across them.
 
-![Distribution of image classes][hist1.png]
-![Distribution of image classes2][hist2.png]
+![Distribution of image classes][hist1]
+![Distribution of image classes2][hist2]
 
 We have that distribution of target values are near similar, so we will assume that images are from the same dataset and we do not need to change number of examples per label
 
@@ -72,11 +72,11 @@ We have that distribution of target values are near similar, so we will assume t
 
 There are few examples of second preprocessing algoritm:
 
-![second variant of preprocessing][preprocess0.png]
-![second variant of preprocessing][preprocess1.png]
-![second variant of preprocessing][preprocess2.png]
-![second variant of preprocessing][preprocess3.png]
-![second variant of preprocessing][preprocess4.png]
+![second variant of preprocessing][preprocess0]
+![second variant of preprocessing][preprocess1]
+![second variant of preprocessing][preprocess2]
+![second variant of preprocessing][preprocess3]
+![second variant of preprocessing][preprocess4]
 
 As a last step, I normalized the image data because ...
 
@@ -86,7 +86,7 @@ I did not make anything to make new validation set, just used one from pickle. I
 
 I've tryied to create "Jittered dataset" like in the paper - adding random scaling and rotations to original dataset. To each image in train set I've added 4 images with random rotation +-10 and random scaling to 1.1 for x/y axis + random cut-off on the top or bottom size. There are an example of all kind of transformation (for each image I've choosed random 4):
 
-![Image Transofrmations][Jittered.png]
+![Image Transofrmations][Jittered]
 
 So, I've increased number of examples in train dataset 5 times using Jittered dataset.
 
