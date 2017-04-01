@@ -22,11 +22,18 @@ The goals / steps of this project are the following:
 [image1]: ./Explore1.png "Visualization"
 [image2]: ./hist1.png "Label distriburion"
 [image3]: ./hist2.png "Label distriburion"
+
 [preprocess0]: ./preprocess0.png "Preprocessing example"
 [preprocess1]: ./preprocess1.png "Preprocessing example"
 [preprocess2]: ./preprocess2.png "Preprocessing example"
 [preprocess3]: ./preprocess3.png "Preprocessing example"
 [preprocess4]: ./preprocess4.png "Preprocessing example"
+
+[heatmap]: ./heatmap.png "Heatmap"
+[avgscore]: ./avg_score.png "Average scores"
+[accurancy_on_valid] ./accurancy_on_valid.png "Average score on validation dataset while learning"
+
+
 [image4]: ./placeholder "Traffic Sign 1"
 [image5]: ./placeholder "Traffic Sign 2"
 [image6]: ./placeholder "Traffic Sign 3"
@@ -66,7 +73,7 @@ Now we have provided train/valid/test datasets - we will explore distribution of
 ![Distribution of image classes][image2]
 ![Distribution of image classes2][image3]
 
-We have that distribution of target values are near similar, so we will assume that images are from the same dataset and we do not need to change number of examples per label
+We have that distribution of target values are near similar, so we will assume that images are from the same dataset and we do not need to change number of examples per label. UPD: Anyway, I've tried to add a dataset with equal number of images per class.
 
 ###Design and Test a Model Architecture
 
@@ -83,7 +90,6 @@ There are few examples of second preprocessing algoritm:
 ![second variant of preprocessing][preprocess3]
 ![second variant of preprocessing][preprocess4]
 
-As a last step, I normalized the image data because ...
 
 ####2. Describe how, and identify where in your code, you set up training, validation and testing data. How much data was in each set? Explain what techniques were used to split the data into these sets. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, identify where in your code, and provide example images of the additional data)
 
@@ -95,7 +101,13 @@ I've tryied to create "Jittered dataset" like in the paper - adding random scali
 
 So, I've increased number of examples in train dataset 5 times using Jittered dataset.
 
-Maybe it could be better quality if using functions from some libraries, like keras
+Also, I've tried keras function ImageDataGenerator and using it created 4 different jitered datasets:
+
+1) Using my function, for each image x4 transformed images
+2) Using my function, for each class 5000 images 
+3) Using keras function, for each image x4 transformed images
+4) Using keras function, for each class 5000 images 
+
 
 ####3. Describe, and identify where in your code, what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
@@ -119,11 +131,39 @@ My final model consisted of the following layers:
 
 ####4. Describe how, and identify where in your code, you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-The code for training the model is located in the eigth cell of the ipython notebook. 
-
-To train the model, I used an ....
-
 ####5. Describe the approach taken for finding a solution. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+
+I've not really played a lot with parametrs: I've took optimizer, batch size and learning rate from lenet for mninst example and added a dropout layer after second convolution because without it model started overfitting too fast. I've made 16 iterations of learning:
+
+1) For each of 4 datasets
+2) For 2 prepocessing methods
+3) With dropout with prob=0.5 and without dropout
+
+Result on validation datasets are:
+
+|Dataset|preprocess_v2,  with dropout |preprocess_v2, no dropout|preprocess_v3,  with dropout|preprocess_v3, no dropout|
+| -----:|-----:|-----:|-----:|-----:|
+|v1|0.971202|0.953061|0.973243|0.964626|
+|v2|0.971655|0.948980|0.973243|0.964399|
+|v3|0.972109|0.957823|0.971655|0.965533|
+|v4|0.969615|0.958730|0.969388|0.964853|
+
+So the best iteration was for preprocess_v3, with dropout and for first and second datasets. This is a heatmap of the results:
+![heatmap on validation set][heatmap]
+
+Also, I've looked for performance of individual parametrs in average:
+
+![Average on valid][avgscore]
+
+We can sea, that different datasets do not give as big performance changes, but preprocessing_v3 was really better then v_2 in average and using dropout really helps. I've also tried to compare using v3 and v1 datasets (see in notebook), but it looks like v_1 really better. Other thing I've learned from learing curve is that model is underfitting and I need more iterations. For best parametrs I've trained it up to 300 iterations and got this learning curve:
+
+![Learning curve on train/validateion set][accurancy_on_valid]
+
+Since validation dataset is tiny and sometimes we see outliers I've added moving average and selected 85 iteration as the best in moving average. Than I trained model for 85 epochs and checked the performance on test dataset - in was 0.95, so enough for now ;) But we can see some overfitting: on validation dataset it was 0.968 on moving average.
+
+
+
+
 
 The code for calculating the accuracy of the model is located in the ninth cell of the Ipython notebook.
 
