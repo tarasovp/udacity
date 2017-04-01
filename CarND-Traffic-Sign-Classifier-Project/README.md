@@ -33,12 +33,14 @@ The goals / steps of this project are the following:
 [avgscore]: ./avg_score.png "Average scores"
 [accurancy_on_valid] ./accurancy_on_valid.png "Average score on validation dataset while learning"
 
+[Example_of_erros]: ./Example_of_erros.png "Example of errors"
 
-[image4]: ./placeholder "Traffic Sign 1"
-[image5]: ./placeholder "Traffic Sign 2"
-[image6]: ./placeholder "Traffic Sign 3"
-[image7]: ./placeholder "Traffic Sign 4"
-[image8]: ./placeholder "Traffic Sign 5"
+[new_images]: ./new_images.png "Images from the web"
+[model_preformance]: ./model_preformance.png "Model performance onImages from the web"
+
+[convolution1]: ./convolution1.png "First convolution"
+[convolution2]: ./convolution2.png "Second convolution"
+
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -161,71 +163,33 @@ We can sea, that different datasets do not give as big performance changes, but 
 
 Since validation dataset is tiny and sometimes we see outliers I've added moving average and selected 85 iteration as the best in moving average. Than I trained model for 85 epochs and checked the performance on test dataset - in was 0.95, so enough for now ;) But we can see some overfitting: on validation dataset it was 0.968 on moving average.
 
+### Performance on the test dataset:
 
+In first, we see that for some categories accurancy is very low and there are a correlation between accurancy for label and %of images in training dataset (>0.3), so for better model we need more data for rear categories. 
 
+Also, I've provided information confusion matrix and more detailed examples of classes where model makes mistake:
 
+![Example of errors][Example_of_erros]
 
-The code for calculating the accuracy of the model is located in the ninth cell of the Ipython notebook.
-
-My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
-
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to over fitting or under fitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
-
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
+We can sea that for many images with mistakes we have too low quality, so for better model we need better image quality and more examples. 
  
-
 ###Test a Model on New Images
 
-####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+####1. Here are five German traffic signs that I found on the web. I've cropped only traffic sign and resized them to 32x32:
 
-Here are five German traffic signs that I found on the web:
+![Images from the web][new_images] 
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+I've calculated probabilities for each class, and I've one mistake so the accurancy is 80%
 
-The first image might be difficult to classify because ...
+![Model performance on new images][model_preformance]
 
-####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. Identify where in your code predictions were made. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+Actually I don't know what is the problem with third image - my guess is that it is not from Germany ;)
 
-The code for making predictions on my final model is located in the tenth cell of the Ipython notebook.
+### Analysis of convolution layers
 
-Here are the results of the prediction:
+I've provided images of model performance on convolution layers
 
-| Image			        |     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+![First convlolution][convolution1]
+![Second convolution][convolution2]
 
-
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
-
-####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
-
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
-
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
-
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
-
-
-For the second image ... 
+On the first layer we can see our signs, on the second I can't see anything ;) I've tried to look on this laerys for images with mistake on test dataset, but I do not have any idea how to use this information to change model structure.
