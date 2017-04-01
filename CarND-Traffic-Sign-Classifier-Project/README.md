@@ -38,8 +38,18 @@ The goals / steps of this project are the following:
 [new_images]: ./new_images.png "Images from the web"
 [model_preformance]: ./model_preformance.png "Model performance onImages from the web"
 
-[convolution1]: ./convolution1.png "First convolution"
-[convolution2]: ./convolution2.png "Second convolution"
+[convolution1_0]: ./convolution1_0.png "First convolution"
+[convolution1_1]: ./convolution1_1.png "First convolution"
+[convolution1_2]: ./convolution1_2.png "First convolution"
+[convolution1_3]: ./convolution1_3.png "First convolution"
+[convolution1_4]: ./convolution1_4.png "First convolution"
+
+
+[convolution2_0]: ./convolution2_0.png "Second convolution"
+[convolution2_1]: ./convolution2_1.png "Second convolution"
+[convolution2_2]: ./convolution2_2.png "Second convolution"
+[convolution2_3]: ./convolution2_3.png "Second convolution"
+[convolution2_4]: ./convolution2_4.png "Second convolution"
 
 
 ## Rubric Points
@@ -189,7 +199,18 @@ Actually I don't know what is the problem with third image - my guess is that it
 
 I've provided images of model performance on convolution layers
 
-![First convlolution][convolution1]
-![Second convolution][convolution2]
+![First convlolution][convolution1_0]
+![First convlolution][convolution1_1]
+![First convlolution][convolution1_2]
+![First convlolution][convolution1_3]
+![First convlolution][convolution1_4]
+
+
+![Second convolution][convolution2_0]
+![Second convolution][convolution2_1]
+![Second convolution][convolution2_2]
+![Second convolution][convolution2_3]
+![Second convolution][convolution2_4]
+
 
 On the first layer we can see our signs, on the second I can't see anything ;) I've tried to look on this laerys for images with mistake on test dataset, but I do not have any idea how to use this information to change model structure.
