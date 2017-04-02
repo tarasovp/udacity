@@ -19,39 +19,29 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./Explore1.png "Visualization"
-[image2]: ./hist1.png "Label distriburion"
-[image3]: ./hist2.png "Label distriburion"
+[image1]: ./images/Explore1.png "Visualization"
+[image2]: ./images/hist1.png "Label distriburion"
+[image3]: ./images/hist2.png "Label distriburion"
 
-[preprocess0]: ./preprocess0.png "Preprocessing example"
-[preprocess1]: ./preprocess1.png "Preprocessing example"
-[preprocess2]: ./preprocess2.png "Preprocessing example"
-[preprocess3]: ./preprocess3.png "Preprocessing example"
-[preprocess4]: ./preprocess4.png "Preprocessing example"
-[Jittered]: ./Jittered.png "Example of adding new images"
+[preprocess0]: ./images/preprocess0.png "Preprocessing example"
+[preprocess1]: ./images/preprocess1.png "Preprocessing example"
+[preprocess2]: ./images/preprocess2.png "Preprocessing example"
+[preprocess3]: ./images/preprocess3.png "Preprocessing example"
+[preprocess4]: ./images/preprocess4.png "Preprocessing example"
+[Jittered]: ./images/Jittered.png "Example of adding new images"
 
-[heatmap]: ./heatmap.png "Heatmap"
-[avgscore]: ./avg_score.png "Average scores"
-[accurancy_on_valid] ./accurancy_on_valid.png "Average score on validation dataset while learning"
+[heatmap]: ./images/heatmap.png "Heatmap"
+[avgscore]: ./images/avg_score.png "Average scores"
+[accurancy_on_valid] ./images/accurancy_on_valid.png "Average score on validation dataset while learning"
 
-[Example_of_erros]: ./Example_of_erros.png "Example of errors"
+[Example_of_erros]: ./images/Example_of_erros.png "Example of errors"
 
-[new_images]: ./new_images.png "Images from the web"
-[model_preformance]: ./model_preformance.png "Model performance onImages from the web"
+[new_images]: ./images/new_images.png "Images from the web"
+[model_preformance]: ./images/model_preformance.png "Model performance onImages from the web"
 
-[convolution1_0]: ./convolution1_0.png "First convolution"
-[convolution1_1]: ./convolution1_1.png "First convolution"
-[convolution1_2]: ./convolution1_2.png "First convolution"
-[convolution1_3]: ./convolution1_3.png "First convolution"
-[convolution1_4]: ./convolution1_4.png "First convolution"
+[convolution1_0]: ./images/convolution1.png "First convolution"
 
-
-[convolution2_0]: ./convolution2_0.png "Second convolution"
-[convolution2_1]: ./convolution2_1.png "Second convolution"
-[convolution2_2]: ./convolution2_2.png "Second convolution"
-[convolution2_3]: ./convolution2_3.png "Second convolution"
-[convolution2_4]: ./convolution2_4.png "Second convolution"
-
+[convolution2_0]: ./images/convolution2.png "Second convolution"
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -207,18 +197,9 @@ Actually I don't know what is the problem with third image - my guess is that it
 
 I've provided images of model performance on convolution layers
 
-![First convlolution][convolution1_0]
-![First convlolution][convolution1_1]
-![First convlolution][convolution1_2]
-![First convlolution][convolution1_3]
-![First convlolution][convolution1_4]
+![First convlolution][convolution1]
 
-
-![Second convolution][convolution2_0]
-![Second convolution][convolution2_1]
-![Second convolution][convolution2_2]
-![Second convolution][convolution2_3]
-![Second convolution][convolution2_4]
+![Second convolution][convolution2]
 
 
 On the first layer we can see our signs, on the second I can't see anything ;) I've tried to look on this laerys for images with mistake on test dataset, but I do not have any idea how to use this information to change model structure.
