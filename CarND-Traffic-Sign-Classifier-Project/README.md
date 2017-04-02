@@ -153,10 +153,11 @@ Result on validation datasets are:
 
 |Dataset|preprocess_v2,  with dropout |preprocess_v2, no dropout|preprocess_v3,  with dropout|preprocess_v3, no dropout|
 | -----:|-----:|-----:|-----:|-----:|
-|v1|0.971202|0.953061|0.973243|0.964626|
-|v2|0.971655|0.948980|0.973243|0.964399|
-|v3|0.972109|0.957823|0.971655|0.965533|
-|v4|0.969615|0.958730|0.969388|0.964853|
+|v1|0.983673|0.963719|0.967800|0.961224|
+|v2|0.976190|0.970522|0.974150|0.966667|
+|v3|0.935828|0.904082|0.937868|0.907029|
+|v4|0.900000|0.854875|0.866440|0.847619|
+
 
 So the best iteration was for preprocess_v3, with dropout and for first and second datasets. This is a heatmap of the results:
 ![heatmap on validation set][heatmap]
