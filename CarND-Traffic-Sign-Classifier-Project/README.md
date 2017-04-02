@@ -32,7 +32,7 @@ The goals / steps of this project are the following:
 
 [heatmap]: ./images/heatmap.png "Heatmap"
 [avgscore]: ./images/avg_score.png "Average scores"
-[accurancy_on_valid] ./images/accurancy_on_valid.png "Average score on validation dataset while learning"
+[accurancy_on_valid]: ./images/accurancy_on_valid.png "Average score on validation dataset while learning"
 
 [Example_of_erros]: ./images/Example_of_erros.png "Example of errors"
 
