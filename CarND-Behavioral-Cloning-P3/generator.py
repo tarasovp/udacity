@@ -1,45 +1,38 @@
 import cv2
 import numpy as np
-
 from sklearn.utils import shuffle
 
 
-def generator(df, dataset, correction=0.2, preprocessing=lambda x:x, batch_size=128, leftright_weight=1):
+def generator(names, y, batch_size = 32, preprocessing = lambda x:x, inverse=None):
     """
     Generator of images for NN,
-    df - dataframe with columns img, side, steering, dataset, inverse
-    correction - how much to add for left/right images
-    preprocessing - preprocessing function
-    and batch_size 
-    leftright_weight - weight for left and right samples
     """
-    
-    samples=df[df.dataset==dataset].values
-    num_samples = len(samples)
-    
-    while 1: # Loop forever so the generator never terminates
-        samples=shuffle(samples)
-        for offset in range(0, num_samples, batch_size):
-            batch_samples = samples[offset:offset+batch_size]
-
-            images = []
-            angles = []
-            weights = []
-            for i, batch_sample in enumerate(batch_samples):
-                img,side,steering,dataset,inverse  = batch_sample
-                image = cv2.imread(img)
-                angle=steering+side*correction
-                if inverse:
-                    image=np.fliplr(image)
-                    angle*=-1
-
-                angles.append(angle)
-                images.append(preprocessing(image))
-                if side==0:
-                    weights.append(1)
-                else:
-                    weights.append(leftright_weight)
 
 
-
-            yield shuffle(np.array(images), np.array(angles),np.array(weights))
+    total_items = len(names)
+    curr_item = 0
+    if not inverse:
+        inverse = np.ones(total_items, dtype=np.uint8)
+        
+    while (True):
+        images = []
+        angles = np.zeros((batch_size),dtype=float)
+        for j in range(batch_size):
+            now=curr_item%total_items
+            
+            image = cv2.imread(names[now])
+            angle=y[now]
+            if inverse[now]==-1:
+                image=np.fliplr(image)
+                angle*=-1
+                
+            images.append(preprocessing(image))
+            angles[j] = y[now]
+            
+            curr_item +=1
+        
+        if curr_item>total_items:
+            curr_item=curr_item%total_items
+            names, y, inverse = shuffle(names, y, inverse)
+        
+        yield np.array(images), angles
