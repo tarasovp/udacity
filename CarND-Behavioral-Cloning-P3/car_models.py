@@ -7,9 +7,10 @@ import cv2
 from keras.models import Sequential
 from keras.layers import Flatten, Dense, Dropout, \
 MaxPooling2D, Conv2D, Lambda, Cropping2D, Convolution2D,\
-AveragePooling2D
+AveragePooling2D,GlobalAveragePooling2D
 from keras.callbacks import History,TensorBoard, EarlyStopping, ModelCheckpoint
 from sklearn.cross_validation import train_test_split
+from keras.models import Model
 
 from keras.applications.inception_v3 import InceptionV3
 from keras.applications.vgg16 import VGG16
@@ -21,16 +22,16 @@ def modified_lenet():
     """
     
     model=Sequential()
+    
+    
+    #model.add(AveragePooling2D(pool_size=(4,4),input_shape=(160,320,3) ))
 
-    model.add(Cropping2D(cropping=((12,4), (0,0)), \
-                         input_shape=(40,80,3)))
+    #model.add(Cropping2D(cropping=((12,4), (0,0)))
 
-    model.add(Lambda(lambda x: (x / 255.0) - 0.5))
+    #model.add(Lambda(lambda x: (x / 255.0) - 0.5))
 
-    model.add(AveragePooling2D(pool_size=(4,4)))
 
-    model.add(Convolution2D(32,3, 3,
-                     activation='relu'))
+    model.add(Convolution2D(32,3, 3,  activation='relu'))
     model.add(Convolution2D(64, 3, 3, activation='relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.25))
@@ -42,7 +43,7 @@ def modified_lenet():
     
     return model
 
-def nvidia_net():
+def nvidia_net(drp=0.5):
     """
     neural network from Nvidia paper
     """
@@ -59,27 +60,28 @@ def nvidia_net():
     model.add(Convolution2D(36, 5, 5, border_mode='valid', activation='relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     
-    model.add(Dropout(0.25))
-
     model.add(Convolution2D(48, 5, 5, border_mode='valid', activation='relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
-    model.add(Convolution2D(64, 3, 3, border_mode='valid', activation='relu'))
+    model.add(Convolution2D(64, 3, 3, border_mode='same', activation='relu'))
     
-    model.add(Dropout(0.25))
-
-    model.add(Convolution2D(64, 3, 3, border_mode='valid', activation='relu'))
+    model.add(Convolution2D(64, 3, 3, border_mode='same', activation='relu'))
     model.add(Flatten())
     
 
     model.add(Dense(1024, activation='relu'))
-    model.add(Dropout(0.25))
+    model.add(Dropout(drp))
 
     model.add(Dense(100, activation='relu'))
+    model.add(Dropout(drp))
+
+
     model.add(Dense(50, activation='relu'))
-    model.add(Dropout(0.25))
+    model.add(Dropout(drp))
+
     model.add(Dense(10, activation='relu'))
     model.add(Dense(1))
+    return model
 
 def inception():
     """

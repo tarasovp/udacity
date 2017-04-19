@@ -1,28 +1,30 @@
 import cv2
 import numpy as np
-import sklearn
+
 from sklearn.utils import shuffle
 
 
-def generator(df, dataset, correction=0.2, preprocessing=lambda x:x, batch_size=128):
+def generator(df, dataset, correction=0.2, preprocessing=lambda x:x, batch_size=128, leftright_weight=1):
     """
     Generator of images for NN,
     df - dataframe with columns img, side, steering, dataset, inverse
     correction - how much to add for left/right images
     preprocessing - preprocessing function
     and batch_size 
+    leftright_weight - weight for left and right samples
     """
     
     samples=df[df.dataset==dataset].values
     num_samples = len(samples)
     
     while 1: # Loop forever so the generator never terminates
-        shuffle(samples)
+        samples=shuffle(samples)
         for offset in range(0, num_samples, batch_size):
             batch_samples = samples[offset:offset+batch_size]
 
             images = []
             angles = []
+            weights = []
             for i, batch_sample in enumerate(batch_samples):
                 img,side,steering,dataset,inverse  = batch_sample
                 image = cv2.imread(img)
@@ -33,7 +35,11 @@ def generator(df, dataset, correction=0.2, preprocessing=lambda x:x, batch_size=
 
                 angles.append(angle)
                 images.append(preprocessing(image))
+                if side==0:
+                    weights.append(1)
+                else:
+                    weights.append(leftright_weight)
 
 
 
-            yield sklearn.utils.shuffle(np.array(images), np.array(angles))
+            yield shuffle(np.array(images), np.array(angles),np.array(weights))
