@@ -159,7 +159,7 @@ def modified_vgg():
 
     x= MaxPooling2D((2,2))(x)
     # First convolution is for model to determine the 'best' colorspace weights
-    x = Conv2D(3, 1, 1, border_mode='same', activation='relu')(inp)
+    x = Conv2D(3, 1, 1, border_mode='same', activation='relu')(x)
     # Reduce dimensions
     x = MaxPooling2D((2,2))(x) #20x80
 
