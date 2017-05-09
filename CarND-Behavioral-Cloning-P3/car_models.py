@@ -146,7 +146,7 @@ def vgg16():
 
     return model
 
-def modified_vgg():
+def modified_vgg0():
     #got and a bit modified from https://github.com/Valtgun/ 
     # ----------------------
     # Model - ideas from VG type network
@@ -194,6 +194,48 @@ def modified_vgg():
 
     model = Model(input=inp, output=out)
     #model.summary()
+    return model
+
+
+def modified_vgg():
+    # ----------------------
+    # Model - ideas from VG type network
+    inp = Input(shape=(40,160,3))
+    # First convolution is for model to determine the 'best' colorspace weights
+    x = Conv2D(3, 1, 1, border_mode='same', activation='relu')(inp)
+    # Reduce dimensions
+    x = MaxPooling2D((2,2))(x) #20x80
+
+    # First convolution layer
+    x1 = Conv2D(32, 3, 3, border_mode='same', activation='relu')(x)
+    x1 = Conv2D(32, 3, 3, border_mode='same', activation='relu')(x1)
+    x1 = MaxPooling2D((2,2))(x1) #10x40
+    x1 = Dropout(0.5)(x1)
+    flat1 = Flatten()(x1) # Used for the merge before first fully connected layer
+
+    # Second convolution layer
+    x2 = Conv2D(64, 3, 3, border_mode='same', activation='relu')(x1)
+    x2 = Conv2D(64, 3, 3, border_mode='same', activation='relu')(x2)
+    x2 = MaxPooling2D((2,2))(x2) #5x20
+    x2 = Dropout(0.5)(x2)
+    flat2 = Flatten()(x2) # Used for the merge before first fully connected layer
+
+    # Second convolution layer
+    x3 = Conv2D(64, 3, 3, border_mode='same', activation='relu')(x2)
+    x3 = Conv2D(64, 3, 3, border_mode='same', activation='relu')(x3)
+    x3 = MaxPooling2D((2,2))(x3) #2x10
+    x3 = Dropout(0.5)(x3)
+    flat3 = Flatten()(x3) # Used for the merge before first fully connected layer
+
+    # Merge the flattened ouputs after each convolution layer
+    x4 = merge([flat1, flat2, flat3], mode='concat')
+    # Fully connected layers
+    x5 = Dense(512, activation='relu')(x4)
+    x6 = Dense(128, activation='relu')(x5)
+    x7 = Dense(16, activation='relu')(x6)
+    out = Dense(1, activation='linear')(x7)
+
+    model = Model(input=inp, output=out)
     return model
 
 

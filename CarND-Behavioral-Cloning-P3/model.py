@@ -51,7 +51,7 @@ names_train, names_valid, steering_train, steering_valid, inverse_train, inverse
 
 model=modified_vgg()
 
-checkpoint = ModelCheckpoint('tmp_lap1.h5', monitor='val_mean_squared_error', verbose=1,
+checkpoint = ModelCheckpoint('model.h5', monitor='val_mean_squared_error', verbose=1,
                               save_best_only=True, mode='min')
 early_stop = EarlyStopping(monitor='val_mean_squared_error',\
                                min_delta=0.001, patience=3,
@@ -79,7 +79,7 @@ q=model.fit_generator(train_gen, \
                     callbacks=[checkpoint, early_stop,history,tb]\
                    )
     
-f=open('history.pk1' % name,'wb')
+f=open('history.pk1','wb')
 pickle.dump(history.history,f,-1)
 f.close()
 
