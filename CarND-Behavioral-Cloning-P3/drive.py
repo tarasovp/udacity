@@ -15,6 +15,7 @@ from io import BytesIO
 from keras.models import load_model
 import h5py
 from keras import __version__ as keras_version
+import cv2
 
 sio = socketio.Server()
 app = Flask(__name__)
@@ -47,6 +48,18 @@ controller = SimplePIController(0.1, 0.002)
 set_speed = 9
 controller.set_desired(set_speed)
 
+size=(40,80)
+
+def preprocessing(im):
+#     return im
+#    return cv2.resize(cv2.cvtColor(im, cv2.COLOR_BGR2YUV),(size[1],size[0]))
+#	return cv2.cvtColor(im, cv2.COLOR_BGR2YUV)
+    image_array = im[59:138:2, 0:-1:2, :]
+    # Normalize pixels to values from -1.0 to 1.0
+    image_array = (image_array / 127.5) - 1.0
+    transformed_image_array = image_array.reshape((1, 40, 160, 3))
+    return transformed_image_array
+#	return im
 
 @sio.on('telemetry')
 def telemetry(sid, data):
@@ -60,10 +73,15 @@ def telemetry(sid, data):
         # The current image from the center camera of the car
         imgString = data["image"]
         image = Image.open(BytesIO(base64.b64decode(imgString)))
-        image_array = np.asarray(image)
-        steering_angle = float(model.predict(image_array[None, :, :, :], batch_size=1))
-
+        image_array = preprocessing(np.asarray(image))
+        try:
+           #steering_angle = float(model.predict(image_array[None, :, :, :], batch_size=1))
+           steering_angle = float(model.predict(image_array, batch_size=1, verbose=1))
+        except Exception as e:
+           print ('fuck! ', str(e))
         throttle = controller.update(float(speed))
+        
+        #throttle+=0.1
 
         print(steering_angle, throttle)
         send_control(steering_angle, throttle)
@@ -137,3 +155,5 @@ if __name__ == '__main__':
 
     # deploy as an eventlet WSGI server
     eventlet.wsgi.server(eventlet.listen(('', 4567)), app)
+
+
