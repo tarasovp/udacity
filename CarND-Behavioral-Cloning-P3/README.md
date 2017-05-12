@@ -2,7 +2,7 @@
 
 [//]: # (Image References)
 
-[image1]: ./images/fit.png "Visualization"
+[image1]: ./images/fitting.png "Visualization"
 
 
 
@@ -70,7 +70,8 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 #2. Final Model Architecture
 
 The final model architecture (car_model.py lines 200-240) have the following achitecture:
-Layer (type)                     Output Shape          Param #     Connected to                     
+Layer (type)                     Output Shape          Param #     Connected to     
+<pre>
 ====================================================================================================
 input_4 (InputLayer)             (None, 40, 160, 3)    0                                            
 ____________________________________________________________________________________________________
@@ -120,6 +121,7 @@ dense_39 (Dense)                 (None, 16)            2064        dense_38[0][0
 ____________________________________________________________________________________________________
 dense_40 (Dense)                 (None, 1)             17          dense_39[0][0]                   
 ====================================================================================================
+</pre>
 
 Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
 
