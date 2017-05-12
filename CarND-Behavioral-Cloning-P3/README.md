@@ -62,7 +62,7 @@ I've tried 4 different network types:
 The performase was
 
 
-![Performance on different models][image1]
+![Performance on different models][image2]
 
 I've trained all of them on the same train dataset and tested on the same data. Model from Valtgun showed the best performance. But I've faced in issue: validation and test errors drops until 25-th epoch, but car stops driving aroud after 10-th epoch! It seems that model starts overfitting - so it's better to found some other test dataset, for example record several mode laps around.
 
@@ -85,6 +85,7 @@ Here is a visualization of the architecture (note: visualizing the architecture 
 
 
 After the collection process, I had 551232 number of data points. I then preprocessed this data by cropping sky and car from the image and taking only 1/4 of pixels.
-I finally randomly shuffled the data set and put 1% of the data into a validation set and 1% to the test set. 
+
+I finally randomly shuffled the data set and put 1% of the data into a validation set and 1% to the test set. To the trained dataset I've added flipped images.
 
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs accroding to validation loss was 25 - but after 10th epochs model started to overfit. So, it's needed to found other way to find validation dataset. I used an adam optimizer so that manually training the learning rate wasn't necessary.
