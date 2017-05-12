@@ -1,7 +1,7 @@
 #**Behavioral Cloning** 
 
 
-####1. Submission includes all required files and can be used to run the simulator in autonomous mode
+#1. Submission includes all required files and can be used to run the simulator in autonomous mode
 
 My project includes the following files:
 * model.py containing the script to create and train the model
@@ -9,86 +9,119 @@ My project includes the following files:
 * model.h5 containing a trained convolution neural network 
 * writeup_report.md or writeup_report.pdf summarizing the results
 
-####2. Submission includes functional code
+#2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
 ```sh
 python drive.py model.h5
 ```
 
-####3. Submission code is usable and readable
+#3. Submission code is usable and readable
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
-###Model Architecture and Training Strategy
+#Model Architecture and Training Strategy
 
-####1. An appropriate model architecture has been employed
+#1. An appropriate model architecture has been employed
 
-Finally the best architecture was taken from 
+Finally the best architecture was taken from https://github.com/Valtgun/  see selection of model below
 
 
-
-####2. Attempts to reduce overfitting in the model
+#2. Attempts to reduce overfitting in the model
 
 The model contains dropout layers in order to reduce overfitting (car_model.py lines 213,220,227). 
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting (see notebook or next section). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
-####3. Model parameter tuning
+#3. Model parameter tuning
 
 The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
 
-####4. Appropriate training data
+#4. Appropriate training data
 
 Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road and few rides in most complicated places (bridge, left turn after bridge and sharp turns on track2)
 
 For details about how I created the training data, see the next section. 
 
-###Model Architecture and Training Strategy
+#Model Architecture and Training Strategy
 
-####1. Solution Design Approach
+#1. Solution Design Approach
 
 I've tried 4 different network types:
 * Modified lenet 
 * Model from nvidia (see
 * Tried to use transfer learning and retrain last layers of vgg16 network
-* Model based on vgg idea from ...
+* Model based on vgg idea from https://github.com/Valtgun/ 
 
-I've trained all of them on the same data
+I've trained all of them on the same train dataset and tested on the same data. Model from Valtgun showed the best performance. But I've faced in issue: validation and test errors drops until 25-th epoch, but car stops driving aroud after 10-th epoch! It seems that model starts overfitting - so it's better to found some other test dataset, for example record several mode laps around.
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
-####2. Final Model Architecture
+#2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
+The final model architecture (car_model.py lines 200-240) have the following achitecture:
+Layer (type)                     Output Shape          Param #     Connected to                     
+====================================================================================================
+input_4 (InputLayer)             (None, 40, 160, 3)    0                                            
+____________________________________________________________________________________________________
+convolution2d_46 (Convolution2D) (None, 40, 160, 3)    12          input_4[0][0]                    
+____________________________________________________________________________________________________
+maxpooling2d_26 (MaxPooling2D)   (None, 20, 80, 3)     0           convolution2d_46[0][0]           
+____________________________________________________________________________________________________
+convolution2d_47 (Convolution2D) (None, 20, 80, 32)    896         maxpooling2d_26[0][0]            
+____________________________________________________________________________________________________
+convolution2d_48 (Convolution2D) (None, 20, 80, 32)    9248        convolution2d_47[0][0]           
+____________________________________________________________________________________________________
+maxpooling2d_27 (MaxPooling2D)   (None, 10, 40, 32)    0           convolution2d_48[0][0]           
+____________________________________________________________________________________________________
+dropout_30 (Dropout)             (None, 10, 40, 32)    0           maxpooling2d_27[0][0]            
+____________________________________________________________________________________________________
+convolution2d_49 (Convolution2D) (None, 10, 40, 64)    18496       dropout_30[0][0]                 
+____________________________________________________________________________________________________
+convolution2d_50 (Convolution2D) (None, 10, 40, 64)    36928       convolution2d_49[0][0]           
+____________________________________________________________________________________________________
+maxpooling2d_28 (MaxPooling2D)   (None, 5, 20, 64)     0           convolution2d_50[0][0]           
+____________________________________________________________________________________________________
+dropout_31 (Dropout)             (None, 5, 20, 64)     0           maxpooling2d_28[0][0]            
+____________________________________________________________________________________________________
+convolution2d_51 (Convolution2D) (None, 5, 20, 64)     36928       dropout_31[0][0]                 
+____________________________________________________________________________________________________
+convolution2d_52 (Convolution2D) (None, 5, 20, 64)     36928       convolution2d_51[0][0]           
+____________________________________________________________________________________________________
+maxpooling2d_29 (MaxPooling2D)   (None, 2, 10, 64)     0           convolution2d_52[0][0]           
+____________________________________________________________________________________________________
+dropout_32 (Dropout)             (None, 2, 10, 64)     0           maxpooling2d_29[0][0]            
+____________________________________________________________________________________________________
+flatten_19 (Flatten)             (None, 12800)         0           dropout_30[0][0]                 
+____________________________________________________________________________________________________
+flatten_20 (Flatten)             (None, 6400)          0           dropout_31[0][0]                 
+____________________________________________________________________________________________________
+flatten_21 (Flatten)             (None, 1280)          0           dropout_32[0][0]                 
+____________________________________________________________________________________________________
+merge_4 (Merge)                  (None, 20480)         0           flatten_19[0][0]                 
+                                                                   flatten_20[0][0]                 
+                                                                   flatten_21[0][0]                 
+____________________________________________________________________________________________________
+dense_37 (Dense)                 (None, 512)           10486272    merge_4[0][0]                    
+____________________________________________________________________________________________________
+dense_38 (Dense)                 (None, 128)           65664       dense_37[0][0]                   
+____________________________________________________________________________________________________
+dense_39 (Dense)                 (None, 16)            2064        dense_38[0][0]                   
+____________________________________________________________________________________________________
+dense_40 (Dense)                 (None, 1)             17          dense_39[0][0]                   
+====================================================================================================
 
 Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
 
 ![alt text][image1]
 
-####3. Creation of the Training Set & Training Process
+#3. Creation of the Training Set & Training Process
 
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
-
-![alt text][image2]
-
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
-
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
-
-Then I repeated this process on track two in order to get more data points.
-
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
-
-![alt text][image6]
-![alt text][image7]
-
-Etc ....
-
-After the collection process, I had X number of data points. I then preprocessed this data by ...
+* For each track 4 laps in each direction
+* 2 laps with "correction from the sides" for both laps and for both directions
+* few rides near most complicated place (bridge, turn after the bridge, sharp turns on track2)
 
 
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
+After the collection process, I had 551232 number of data points. I then preprocessed this data by cropping sky and car from the image and taking only 1/4 of pixels.
+I finally randomly shuffled the data set and put 1% of the data into a validation set and 1% to the test set. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs accroding to validation loss was 25 - but after 10th epochs model started to overfit. So, it's needed to found other way to find validation dataset. I used an adam optimizer so that manually training the learning rate wasn't necessary.
