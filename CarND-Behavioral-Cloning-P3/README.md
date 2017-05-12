@@ -1,5 +1,11 @@
 **Behavioral Cloning** 
 
+[//]: # (Image References)
+
+[image1]: ./images/fit.png "Visualization"
+
+
+
 
 #1. Submission includes all required files and can be used to run the simulator in autonomous mode
 
@@ -48,9 +54,14 @@ For details about how I created the training data, see the next section.
 
 I've tried 4 different network types:
 * Modified lenet 
-* Model from nvidia (see
+* Model from nvidia (see original nvida papaer - I've just croped images before using their model)
 * Tried to use transfer learning and retrain last layers of vgg16 network
 * Model based on vgg idea from https://github.com/Valtgun/ 
+
+The performase was
+
+
+![Performance on different models][image1]
 
 I've trained all of them on the same train dataset and tested on the same data. Model from Valtgun showed the best performance. But I've faced in issue: validation and test errors drops until 25-th epoch, but car stops driving aroud after 10-th epoch! It seems that model starts overfitting - so it's better to found some other test dataset, for example record several mode laps around.
 
@@ -112,7 +123,6 @@ dense_40 (Dense)                 (None, 1)             17          dense_39[0][0
 
 Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
 
-![alt text][image1]
 
 #3. Creation of the Training Set & Training Process
 
