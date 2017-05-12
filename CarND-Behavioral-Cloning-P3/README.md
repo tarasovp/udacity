@@ -12,6 +12,7 @@
 
 My project includes the following files:
 
+* expore.ipynb - model selection
 * get_images.py - module for getting images from different csv
 * generator.py - generators for image generation (including flipping and preprocessing)
 * car_models.py - all  tested models
