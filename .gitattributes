@@ -5,3 +5,4 @@ CarND-Behavioral-Cloning-P3/results/model_modified_vgg_25.h5 filter=lfs diff=lfs
 CarND-Behavioral-Cloning-P3/lap1.mp4 filter=lfs diff=lfs merge=lfs -text
 CarND-Behavioral-Cloning-P3/lap2.mp4 filter=lfs diff=lfs merge=lfs -text
 CarND-Behavioral-Cloning-P3/new_training.zip filter=lfs diff=lfs merge=lfs -text
+CarND-Behavioral-Cloning-P3/model.h5 filter=lfs diff=lfs merge=lfs -text
