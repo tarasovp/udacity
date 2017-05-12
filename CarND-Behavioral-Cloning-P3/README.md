@@ -62,7 +62,7 @@ I've tried 4 different network types:
 The performase was
 
 
-![Performance on different models][image2]
+![Performance on different models][image1]
 
 I've trained all of them on the same train dataset and tested on the same data. Model from Valtgun showed the best performance. But I've faced in issue: validation and test errors drops until 25-th epoch, but car stops driving aroud after 10-th epoch! It seems that model starts overfitting - so it's better to found some other test dataset, for example record several mode laps around.
 
@@ -72,7 +72,7 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 
 The final model architecture (car_model.py lines 200-240) have the following achitecture:
    
-![Architecture][image1]
+![Architecture][image2]
 
 Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
 
