@@ -4,6 +4,14 @@
 
 [image1]: ./images/fitting.png "Visualization"
 [image2]: ./images/model.png "Visualization"
+[recovery]: ./images/recovery.png "Recovery"
+
+[scr1]: ./images/scr1.png "Bridge"
+[scr2]: ./images/scr2.png "Turn after bridge"
+[scr3]: ./images/scr.png "Sharp turn track2"
+
+[cropped]: ./images/cropped.png "Recovery"
+
 
 
 
@@ -79,15 +87,20 @@ The final model architecture (car_model.py lines 200-240) have the following ach
    
 ![Architecture][image2]
 
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
+Before using model I've added preprocessing (cropping and taking 1/4 pixels)
 
+![cropped][cropped]
 
 #3. Creation of the Training Set & Training Process
 
-* For each track 4 laps in each direction
-* 2 laps with "correction from the sides" for both laps and for both directions
-* few rides near most complicated place (bridge, turn after the bridge, sharp turns on track2)
+* For each track: 4 laps in each direction
+* For each track: 2 laps with "correction from the sides" forward and 2 backward
+![Recovery example][image1]
+* few rides near most complicated place (bridge and turn after the bridge, sharp turn on track2)
 
+![screenshot1][scr1]
+![screenshot2][scr2]
+![screenshot3][scr3]
 
 After the collection process, I had 551232 number of data points. I then preprocessed this data by cropping sky and car from the image and taking only 1/4 of pixels.
 
