@@ -10,7 +10,7 @@
 [scr2]: ./images/scr2.png "Turn after bridge"
 [scr3]: ./images/scr3.png "Sharp turn track2"
 
-[cropped]: ./images/cropped.png "Recovery"
+[cropped]: ./images/cropped.png "Cropping"
 [flipped]: ./images/flipped.png "Flipped"
 
 
@@ -95,7 +95,7 @@ Before using model I've added preprocessing (cropping and taking 1/4 pixels)
 
 * For each track: 4 laps in each direction
 * For each track: 2 laps with "correction from the sides" forward and 2 backward
-![Recovery example][image1]
+![Recovery example][recovery]
 * few rides near most complicated place (bridge and turn after the bridge, sharp turn on track2)
 
 ![screenshot1][scr1]
