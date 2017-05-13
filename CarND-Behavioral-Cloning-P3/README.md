@@ -8,10 +8,10 @@
 
 [scr1]: ./images/scr1.png "Bridge"
 [scr2]: ./images/scr2.png "Turn after bridge"
-[scr3]: ./images/scr.png "Sharp turn track2"
+[scr3]: ./images/scr3.png "Sharp turn track2"
 
 [cropped]: ./images/cropped.png "Recovery"
-
+[flipped]: ./images/flipped.png "Flipped"
 
 
 
@@ -104,6 +104,9 @@ Before using model I've added preprocessing (cropping and taking 1/4 pixels)
 
 After the collection process, I had 551232 number of data points. I then preprocessed this data by cropping sky and car from the image and taking only 1/4 of pixels.
 
-I finally randomly shuffled the data set and put 1% of the data into a validation set and 1% to the test set. To the trained dataset I've added flipped images.
+I finally randomly shuffled the data set and put 1% of the data into a validation set and 1% to the test set. To the trained dataset I've added flipped images. There is an example of image flipping:
+
+![flipped][flipped]
+
 
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs accroding to validation loss was 25 - but after 10th epochs model started to overfit. So, it's needed to found other way to find validation dataset. I used an adam optimizer so that manually training the learning rate wasn't necessary.
