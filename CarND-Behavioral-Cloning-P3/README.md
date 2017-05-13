@@ -4,7 +4,7 @@
 
 [image1]: ./images/fitting.png "Visualization"
 [image2]: ./images/model.png "Visualization"
-[recovery]: ./images/recovery.png "Recovery"
+[recovery]: ./images/recovery.gif "Recovery"
 
 [scr1]: ./images/scr1.png "Bridge"
 [scr2]: ./images/scr2.png "Turn after bridge"
