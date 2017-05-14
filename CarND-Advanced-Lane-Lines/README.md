@@ -19,12 +19,19 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./images/distortion.png "Undistorted"
-[image2]: ./images/undistorted_track.pngg "Road Transformed"
-[image3]: ./images/bin_5.png "Binary Example"
-[image4]: ./images/projected.png "Warp Example"
-[image5]: ./images/visualized_6.png "Fit Visual"
-[image6]: ./images/sample.png "Output"
+[undistorted1]: ./images/distortion.png "Undistorted"
+[undistorted2]: ./images/undistorted_track.png "Road Transformed"
+
+[bin1]: ./images/bin_5.png "Binary Example 1"
+[bin2]: ./images/bin_6.png "Binary Example 2"
+
+[projection1]: ./images/projected.png "Warp Example"
+
+[vis1]: ./images/visualized_2.png "Fit Visual"
+[vis2]: ./images/visualized_3.png "Fit Visual"
+
+
+[final]: ./images/sample.png "Output"
 [video1]: ./project_anotated.mp4 "Project video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -48,19 +55,19 @@ I start by preparing "object points", which will be the (x, y, z) coordinates of
 
 I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
 
-![Example of unfistroeted images][image1]
+![Example of unfistroeted images][undistorted1]
 
 ### Pipeline (single images)
 
 #### 1. Provide an example of a distortion-corrected image.
 
 To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
-![alt text][image2]
+![alt text][undistorted2]
 
 
 #### 2. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-I've used perspective transform before binaryzation. Unfortanutely I've not seen that sample src and dst are proveided, so I've used my own hardcoded points
+I've used perspective transform before binaryzation - in my experiments it works better in such way. Unfortanutely I've not seen that sample src and dst are proveided, so I've used my own hardcoded points
 
 
 | Source        | Destination   | 
@@ -76,21 +83,32 @@ The code for my perspective transform includes a function called `pr()`, which a
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
-![alt text][image4]
+![Projection example][projection1]
 
 #### 3. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I've a littlebit modified functions from udacity course, made them to accept few more parametrs, like, for example on which colorspace ('h' - is H from hls, 'A' is A from LAB and 'gray' is just gray:)) to apply them. This gived me a change to do some experiments and to introduce three functions with different threshholds. In first function I use additionally white and yellow points detection from first project.
+I've a littlebit modified functions from udacity course, made them to accept few more parametrs, like, for example on which colorspace ('h' - is H from hls, 'A' is A from LAB and 'gray' is just gray:)) to apply them. This gived me a change to do some experiments and to introduce three functions with different threshholds. In first function I use additionally white and yellow points detection from first project. There is an example, how all three functions work:
 
-![alt text][image3]
+![Binary example1][bin1]
+![Binary example2][bin2]
+
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 I've tried both convolution and sliding window approaches but stopped on sliding window. Of coarse, it's better to implement both and have a choice - if first one not working use the second. Also, I've hardcoded the place where lane's should start - it work fine for project and challenge video, but it will not work for harder challenge at all.
 
-![alt text][image5]
+![Visualisation1][vis1]
+![Visualisation2][vis2]
 
-When the lane is detected I just look for points adjasting to the previously detected lines and use them to fit polynom. If I've missed 5+ imagess in a row I'm starting from scratch. For mor detailed information please see line class in explore.ipynb.
+Also in a pipeline I used:
+
+* When the lane is detected I just look for points adjasting to the previously detected lines and use them to fit polynom. 
+* If I've missed 5+ imagess in a row I'm starting from scratch. 
+* I've used 5 images smoothing for provide better visualisation of polynom
+* I used "check line" function (see in line class) for check is my line correct. If I've not found lines in the frame I draw blue color on track (using last good fit), and if have not found it for 5+ images in a row than red one
+* I used 4 diffetent binatytation functions. If my code misses to find lines for the first function, it tries to use the second. Actually it's possible to add many of functions - but than I've to use better "check line" function, since founded line with a big chance will be incorrect
+
+For mor detailed information please see line class in explore.ipynb.
 
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
@@ -101,7 +119,7 @@ It's done in line class. For curvation I just use the same idea as in Udacity co
 
 This is implemented in visualise method of line function, there is and example
 
-![alt text][image6]
+![Example of visualization][final]
 
 ---
 
@@ -109,7 +127,7 @@ This is implemented in visualise method of line function, there is and example
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [ling to project videl](./project_video.mp4), to challenge video [ling to project videl](./project_video.mp4) and to harder challenge video [ling to project videl](./project_video.mp4)
+Here's a [ling to project video](./project_anotated.mp4), to challenge video [ling to project videl](./challenge_anotated.mp4) and to harder challenge video [ling to project videl](./harder_challenge_anotated.mp4)
 
 My code works well on project and challenge, but fails on harder challenge. I'll give few points what have to be improved in discussion.
 
