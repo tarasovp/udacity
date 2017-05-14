@@ -34,6 +34,10 @@ The goals / steps of this project are the following:
 [final]: ./images/sample.png "Output"
 [video1]: ./project_anotated.mp4 "Project video"
 
+
+[error]: ./errors/387.png "Mistake example"
+
+
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
@@ -137,4 +141,17 @@ My code works well on project and challenge, but fails on harder challenge. I'll
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+This is an example of mistake from the last video
+
+![error][final]
+
+This image contaith both problems of my code:
+1) Defenitely needed better binarization. In some images with dark parts or highlights my code misses. This could be done by:
+* writing different functions (like I've done+some more) *
+* by fitting their parametres using grid search. We can measure when lines are found (== curvation is near the same, posigion is ok, different functions gives the same line on the image - if so, the line is found)
+* use other color spaces (I've started with LAB, but did not used it in my project). Maybe to blend different channels
+* use some other CV methods (like in first project) or add some ML methods (like clusterization and removing noise using it)
+
+2) The second problem - I've hardcoded that all lines are starting from the bottom of the image. It's not true - on the image there are not right line and the left one starts on the left side. We can:
+* If we found one line and sure in it, and we know that it looks like the line is in the right position (according to previous frame) and the second line is not found (not on image or bad quality) we can just calculate is't approximate position
+* Better check of the lines. I do not use previous line positions (only in the search of the next one, not in correction check) but it's needed.
