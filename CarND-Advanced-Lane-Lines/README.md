@@ -143,7 +143,7 @@ My code works well on project and challenge, but fails on harder challenge. I'll
 
 This is an example of mistake from the last video
 
-![error][final]
+![error][error]
 
 This image contaith both problems of my code:
 1) Defenitely needed better binarization. In some images with dark parts or highlights my code misses. This could be done by:
