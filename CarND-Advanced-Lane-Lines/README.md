@@ -13,19 +13,19 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[undistorted1]: ./images/distortion.png "Undistorted"
-[undistorted2]: ./images/undistorted_track.png "Road Transformed"
+[undistorted1]: ./output_images/distortion.png "Undistorted"
+[undistorted2]: ./output_images/undistorted_track.png "Road Transformed"
 
-[bin1]: ./images/bin_5.png "Binary Example 1"
-[bin2]: ./images/bin_6.png "Binary Example 2"
+[bin1]: ./output_images/bin_5.png "Binary Example 1"
+[bin2]: ./output_images/bin_6.png "Binary Example 2"
 
-[projection1]: ./images/projected.png "Warp Example"
+[projection1]: ./output_images/projected.png "Warp Example"
 
-[vis1]: ./images/visualized_2.png "Fit Visual"
-[vis2]: ./images/visualized_3.png "Fit Visual"
+[vis1]: ./output_images/visualized_2.png "Fit Visual"
+[vis2]: ./output_images/visualized_3.png "Fit Visual"
 
 
-[final]: ./images/sample.png "Output"
+[final]: ./output_images/sample.png "Output"
 [video1]: ./project_anotated.mp4 "Project video"
 
 
