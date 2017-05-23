@@ -24,7 +24,7 @@ The goals / steps of this project are the following:
 
 [similar0]: ./output_images/similar_0.png
 [similar1]: ./output_images/similar_1.png
-[similar2]: ./output_images/similar_10.png
+[similar2]: ./output_images/similar_2.png
 
 [dist]: ./output_images/dist.png
 
